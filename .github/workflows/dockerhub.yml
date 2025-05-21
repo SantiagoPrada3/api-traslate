@@ -31,6 +31,14 @@ jobs:
           ls -la target/
           echo "=== JAR file details ==="
           find target -name "*.jar" -type f -exec ls -l {} \;
+          echo "=== Verifying JAR file ==="
+          if [ -f "target/deeptraslate.jar" ]; then
+            echo "JAR file exists"
+            ls -l target/deeptraslate.jar
+          else
+            echo "JAR file not found"
+            exit 1
+          fi
 
       # 4. Login a Docker Hub
       - name: Log in to Docker Hub
@@ -49,4 +57,3 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/deeptraslate:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/deeptraslate:${{ github.sha }}
-            ${{ secrets.DOCKERHUB_USERNAME }}/deeptraslate:${{ github.ref_name }}

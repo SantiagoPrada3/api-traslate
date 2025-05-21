@@ -6,7 +6,7 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Copia el archivo JAR desde tu máquina host al contenedor.
-COPY target/*.jar app.jar
+COPY target/deeptraslate.jar app.jar
 
 # Expone el puerto 8080, que normalmente es usado por aplicaciones Spring Boot.
 EXPOSE 8080
