@@ -1,38 +1,17 @@
 version: '3.8'
 
 services:
-  app:
+  deeptraslate-api-be:                              # Nombre del servicio
+    image: santiagoprada1029/deeptraslate:latest      # Nombre de la imagen a utilizar
+    container_name: deeptraslate-api-be-container  # Nombre específico para el contenedor
     build: .
     ports:
       - "8080:8080"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/deeptraslate
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=postgres
-      - DEEPL_API_KEY=671b50a122mshaf9764da7d7739cp172a75jsna75ff1f66e9b
-      - DEEPL_API_URL=https://api-free.deepl.com/v2/translate
-      - SPRING_PROFILES_ACTIVE=dev
-    depends_on:
-      - db
-    networks:
-      - deeptraslate-network
-
-  db:
-    image: postgres:15-alpine
-    ports:
-      - "5432:5432"
-    environment:
-      - POSTGRES_DB=deeptraslate
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
-    networks:
-      - deeptraslate-network
-
-networks:
-  deeptraslate-network:
-    driver: bridge
-
-volumes:
-  postgres-data: 
+      DATABASE_URL=jdbc:r2dbc:pool:postgresql://ep-steep-cell-a4qsjqqd-pooler.us-east-1.aws.neon.tech/apitraslate
+      DATABASE_USERNAME=apitraslate_owner
+      DATABASE_PASSWORD=npg_OHbyMG6g8cWS
+      RAPIAPI_URL=https://rapidapi.com/gatzuma/api/deep-translate1
+      RAPIDAPI_KEY=671b50a122mshaf9764da7d7739cp172a75jsna75ff1f66e9b
+      RAPIAPI_HOST=deep-translate1.p.rapidapi.com
+   
