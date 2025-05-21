@@ -43,4 +43,4 @@ jobs:
           RAPIDAPI_URL: ${{ secrets.RAPIDAPI_URL }}
           RAPIDAPI_HOST: ${{ secrets.RAPIDAPI_HOST }}
           RAPIDAPI_APIKEY: ${{ secrets.RAPIDAPI_APIKEY }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=juancondorijara_CognitiveServices_AgeDetector
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=SantiagoPrada3_api-traslate
