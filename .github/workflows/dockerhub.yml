@@ -14,14 +14,29 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      # 2. Login a Docker Hub
+      # 2. Set up JDK 17
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      # 3. Build con Maven
+      - name: Build with Maven
+        run: |
+          chmod +x ./mvnw
+          ./mvnw clean package -DskipTests
+          ls -la target/
+
+      # 4. Login a Docker Hub
       - name: Log in to Docker Hub
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # 3. Build y Push con tags latest y SHA
+      # 5. Build y Push con tags latest y SHA
       - name: Build and Push Docker Image to Docker Hub
         uses: docker/build-push-action@v4
         with:
@@ -31,3 +46,4 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/deeptraslate:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/deeptraslate:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/deeptraslate:${{ github.ref_name }}
